@@ -53,93 +53,44 @@ Select * from Employee_Practise
 
 -- 1.Display the details of all the employess.
 
-select * from Employee_Practise
-
 -- 2.Display the name and job for all the employess.
-
-select Name, JobTitle from Employee_Practise
 
 -- 3.Display the name and salary for all the employess.
 
-select Name, Salary from Employee_Practise
-
 -- 4.Display the employee no and total salary for all the employess.
-
-select EmpID, Salary from Employee_Practise
 
 -- 5.Display the employee name and annual salary for all the employess.
 
-update Employee_Practise set Salary = (Salary / 12) where EmpID between 101 and 130
-select * from Employee_Practise
-
--- or
-
-alter table Employee_Practise add Anual_Salary int
-
-update Employee_Practise set Annual_Salary = (Salary * 12) where Annual_Salary is null
-select * from Employee_Practise
-
 -- 6.Display the employee names of all employess who are working in HR department.
-
-select Name from Employee_Practise where DeptNo = 651
 
 -- 7.Display the employee names of all employess who are working in HR department and salary is greater than 2000.
 
-select Name from Employee_Practise where DeptNo = 651 and  Salary > 2000
-
 -- *8.Display the employee number who are earning same salary.
 
-select Salary, count(Salary) as Employee1 from Employee_Practise group by Salary having COUNT(Salary) > 1 
-
--- 9.Display the names of employess whos are working in organization for the past 5 years.
-
-select Name from Employee_Practise where DOJ > '01-01-2017'
-
--- Totl Experience to Employee = [select Name, datediff(YY, DOJ, getdate() ) as Experience from Employee_Practise]
+-- 9.Display the names of employess whose are working in organization for the past 5 years.
 
 -- 10.Display the list of employess who have joined the company before 30-01-2020 after 30-07-2020?
 
-select * from Employee_Practise where DOJ < '01-30-2020' or DOJ > '07-30-2020'
-
 -- 11.Display current date.
-
-select GETDATE()
 
 -- 12.Display all the tables name from database?
 
-select * from master.INFORMATION_SCHEMA.TABLES
-
 -- 13.Display the employess whos name start with alphabet 'S'.
-
-select Name from Employee_Practise where Name like 'S%'
 
 -- 14.Display the employess whos name ends with alphabet 'S'.
 
-select Name from Employee_Practise where Name like '%S'
-
 -- 15.Display the employees whose names have second alphabet 'R' in their names.
-
-select Name from Employee_Practise where Name like '_R%'
 
 -- 16.Select the names of the employee whose names is exactly five charecter of length.
  
- select * from Employee_Practise where len(Name) > 5
-
  -- 17.Display the total salary being paid to all employess.
-
- select SUM(Salary) from Employee_Practise
 
  -- 18.Display the maximum salary from employee table.
 
- select MAX(Salary) as Max_Salary from Employee_Practise
-
  -- 19.Display the minimum salary from employee table.
-
- select MIN(Salary) as Min_Salary from Employee_Practise
 
  -- 20.Display the Average salary from employee table.
 
- select AVG(Salary) as Avg_Salary from Employee_Practise
 
  -- ☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻
 
@@ -147,94 +98,45 @@ select Name from Employee_Practise where Name like '_R%'
 
  -- 1.Display the names of the employee in order of salary i.e. the name of employee earning lowest salary should be first.
 
- select Name, Salary from Employee_Practise order by Salary
-
  -- 2.Display the empno,ename,deptno,salary sort the output first based on name within name by deptno and within deptno by salary.
 
- select EmpID, Name, DeptNo, Salary from Employee_Practise order by Name, DeptNo, Salary
-
  -- 3.Display the name of the employee along with their annual salary (salary*12). The name of the employee earning highest annual salary should appear first.
-
- alter table Employee_Practise add Annual_Salary int
- update Employee_Practise set Annual_Salary = (Salary * 12) where EmpID > 1
- select Name, Annual_Salary from Employee_Practise order by Annual_Salary desc
 
  -- 4.Display the names,salary,HRA,PF,DA,Total Salary for each employeer.
  -- The output should be in the order of total salary,HRA 15% salary,DA 10% salary, PF 5% of salary, total salary will be (salary+HRA+DA)-PF
 
- select *, HRA = (Salary/100)*15, DA = (Salary/100)*10, PF = (SAlary/100)*5 from Employee_Practise
-
- -- or
-
- alter table Employee_Practise add HRA int, DA int, PF int, Total_Salary int
- update Employee_Practise set HRA = (Salary*0.15), DA = (Salary*0.10), PF = (Salary*0.05) where EmpID >1
- update Employee_Practise set Total_Salary = Salary + HRA + DA + PF where EmpID > 1
- select * from Employee_Practise
-
  -- 5.Display the department numbers and total number of employees working in each department.
-
- select DeptNo,  count(JobTitle) as Dept_wise_Employee from Employee_Practise group by DeptNo 
 
  -- 6.Display the department numbers and total salary for each department
 
- select JobTitle, sum(Salary) as Total_Dept_Salary from Employee_Practise group by JobTitle
-
  -- 7.Display the department numbers and total maximum salary for each department
-
- select DeptNo, max(Salary) as Max_Sal_Dept_wise from Employee_Practise group by DeptNo
 
  -- 8.Display the department numbers and total salary for each department whose employee count is more than 2.
 
-  select DeptNo, sum(Salary) as Max_Sal_Dept_wise from Employee_Practise group by DeptNo having COUNT(JobTitle) > 2
-
  -- 9.Display the names of HR whos earn a salary more than highest salary of Finance department.
 
- select Name, Salary from Employee_Practise where DeptNo = 651 and salary > (select max(Salary) from Employee_Practise where DeptNo = 551)
-
  -- 10.Display the name of employess who earn highest salary in their respective department?
-
- select name, Salary, DeptNo from Employee_Practise where Salary in (Select MAX(Salary) from Employee_Practise group by DeptNo)
-
+ 
  -- 11.Display the name of employess who are working in Accounting department (Data Analyst).
-
- select Name from Employee_Practise where JobTitle = 'Data Analyst'
 
  -- 12.Display the name of employess who are working in Mumbai.
 
- select Name from Employee_Practise where Location = 'Mumbai'
-
  -- 13.Display the department having total salary greater than the maximum salary for managers.
-
- select DeptNo, SUM(Salary) as Total_Sal_Dept_wise from Employee_Practise group by DeptNo having SUM(Salary) > (select MAX(Salary) from Employee_Practise where JobTitle = 'Manager')
 
  -- 14.Display the employess last or bottom 5 records.
 
- with row_number as (select Name, ROW_NUMBER() over (order by EmpID) Last_Five from Employee_Practise)
- select * from row_number where Last_Five > 25
-
  -- 15.Display the employess whose employee ID is even.
-
- select Name from Employee_Practise where EmpID like ('%0') or EmpID like ('%2') or EmpID like ('%4') or EmpID like ('%6') or EmpID like ('%8')
 
  -- 16.Display the employess whose employee ID is odd.
 
- select Name from Employee_Practise where EmpID like ('%1') or EmpID like ('%3') or EmpID like ('%5') or EmpID like ('%7') or EmpID like ('%9') 
-
  -- 17.How to find '_' within two names (for ex: name like Praveen_Patil)
-
- select Name from Employee_Practise where Name like '%[_]%'
 
  -- 18.Display the maximum salary from being paid to Finance department from employee table.
 
- select DeptNo, MAX(salary) as Max_Salary_Finance from Employee_Practise group by DeptNo having DeptNo = 551
-
  -- 19.Display the minimum salary from being paid to HR department from from employee table.
-
- select DeptNo, Min(Salary) as Min_Salary_HR from Employee_Practise group by DeptNo having DeptNo = 651
 
  -- 20.Display the Average salary drawn by Manager department from from employee table.
 
- select DeptNo, AVG(Salary) as Avg_Salary_HR from Employee_Practise group by DeptNo Having DeptNo = 651
 
   -- ☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻
 
